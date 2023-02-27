@@ -5,7 +5,7 @@ export default class SafeError extends Error {
         super(message);
         
         Error.captureStackTrace(this, this.constructor);
-        this.name = this.constructor.name;
+        this.name = 'SafeError';
 
         if (statusCode)
             this.statusCode = statusCode;
