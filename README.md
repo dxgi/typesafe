@@ -7,7 +7,7 @@ Introducing \"typesafe\", an npm package providing object-oriented type safety f
 Install @imaximus/typesafe with yarn
 
 ```bash
-yarn add @imaximus/typesafe@1.0.0
+yarn add @imaximus/typesafe
 ```
     
 ## General Usage
