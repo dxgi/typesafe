@@ -3,6 +3,7 @@ import what from './components/what';
 import { isNull, isNullOrEmpty } from './components/check';
 import parseError from './components/parseError';
 import { Request, Response, NextFunction } from 'express';
+import SafeError from './components/SafeError';
 
 const typesafe = (schema: IMatch) => {
     return (input: any) => {
@@ -127,7 +128,7 @@ const typesafe = (schema: IMatch) => {
                 const rule = (schema as any)[key];
 
                 if (!input.hasOwnProperty(key))
-                    return reject(new Error(`Couldn't resolve input.${key}`));
+                    return reject(new SafeError(`Couldn't resolve input.${key}`));
 
                 _typesafe(key, rule, input[key], false)
                     .then(() => resolve(null))
@@ -148,5 +149,6 @@ const middleware = (schema: IMatch) => {
 export {
     typesafe,
     middleware,
-    IMatch
+    IMatch,
+    SafeError
 }
