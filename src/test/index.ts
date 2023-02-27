@@ -55,7 +55,7 @@ const schema: IMatch = {
 
 const input = {
     body: {
-        test_1: 'OK',
+        test_1: 'reject',
         test_2: 10,
         test_3: {
             test_3_1: 'test'
