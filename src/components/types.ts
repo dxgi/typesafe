@@ -1,6 +1,7 @@
 interface IBasic {
     min: number;
     max?: number;
+    nullable?: boolean;
 }
 
 interface IStringWithCustom extends IBasic {

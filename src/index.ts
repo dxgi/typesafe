@@ -19,12 +19,16 @@ const typesafe = (schema: IMatch) => {
 
                         switch (what(schema)) {
                             case SafeType.string: {
-                                const { min, max, custom } = array ? schemas.string : schema.string;
+                                const { min, max, nullable, custom } = array ? schemas.string : schema.string;
 
-                                const value = array ? input : input[key];
+                                const value = array ? input : input[key],
+                                    empty = isNullOrEmpty(value);
 
-                                if (isNullOrEmpty(value))
+                                if (!nullable && empty)
                                     throw parseError(path, 'empty');
+                                
+                                if (nullable && empty)
+                                    return;
 
                                 if (typeof value !== 'string')
                                     throw parseError(path, 'not a string');
@@ -45,12 +49,16 @@ const typesafe = (schema: IMatch) => {
                                 break;
                             }
                             case SafeType.number: {
-                                const { min, max, custom } = array ? schemas.number : schema.number;
+                                const { min, max, nullable, custom } = array ? schemas.number : schema.number;
 
-                                const value = array ? input : input[key];
+                                const value = array ? input : input[key],
+                                    empty = isNull(value);
 
-                                if (isNull(value))
+                                if (!nullable && empty)
                                     throw parseError(path, 'empty');
+
+                                if (nullable && empty)
+                                    return;
 
                                 if (typeof value !== 'number')
                                     throw parseError(path, 'not a number');

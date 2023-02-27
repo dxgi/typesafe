@@ -7,7 +7,8 @@ const schema: IMatch = {
                 name: {
                     string: {
                         min: 5,
-                        max: 10
+                        max: 10,
+                        nullable: true
                     }
                 }
             }
@@ -21,6 +22,7 @@ const schema: IMatch = {
                         name: {
                             string: {
                                 min: 5,
+                                nullable: false,
                                 custom: (value: string) => {
                                     return value === 'Johnathan';
                                 }
@@ -46,11 +48,11 @@ const schema: IMatch = {
 const input = {
     body: {
         data: {
-            name: 'Johnathan'
+            name: null
         },
         dataset: [
             {
-                name: 'Johnathan',
+                name: null,
                 list: [
                     1, 2, 3, 4, 5
                 ]
