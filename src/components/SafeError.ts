@@ -1,7 +1,13 @@
 export default class SafeError extends Error {
-    constructor(message: string) {
+    statusCode: number = 400;
+
+    constructor(message: string, statusCode?: number) {
         super(message);
         
-        this.name = 'SafeError';
+        Error.captureStackTrace(this, this.constructor);
+        this.name = this.constructor.name;
+
+        if (statusCode)
+            this.statusCode = statusCode;
     }
 }
