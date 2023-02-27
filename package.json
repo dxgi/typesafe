@@ -1,5 +1,5 @@
 {
-    "name": "typesafe",
+    "name": "@dxgi/typesafe",
     "version": "1.0.0",
     "description": "Introducing \"typesafe\", an npm package providing object-oriented type safety for Express and general usage.",
     "keywords": [
