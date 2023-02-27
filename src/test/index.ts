@@ -2,48 +2,39 @@ import { typesafe, IMatch } from '../index';
 
 const schema: IMatch = {
     body: {
-        test_1: {
-            string: {
-                min: 1,
-                max: 10,
-                custom: (value: string) => {
-                    if (value.startsWith('error'))
-                        throw new Error('[schema] test_1: string.custom: starts with "error"');
-                    else if (value === 'reject')
-                        return false;
-                    
-                    return true;
-                }
-            }
-        },
-        test_2: {
-            number: {
-                min: 1,
-                max: 10
-            }
-        },
-        test_3: {
+        data: {
             object: {
-                test_3_1: {
+                name: {
                     string: {
-                        min: 1,
+                        min: 5,
                         max: 10
                     }
                 }
             }
         },
-        test_4: {
+        dataset: {
             array: {
                 min: 1,
-                max: 10,
+                max: 5,
                 items: {
-                    string: {
-                        min: 1,
-                        custom: (value: string) => {
-                            if (!value.startsWith('https://'))
-                                return false;
-
-                            return true;
+                    object: {
+                        name: {
+                            string: {
+                                min: 5,
+                                custom: (value: string) => {
+                                    return value === 'Johnathan';
+                                }
+                            }
+                        },
+                        list: {
+                            array: {
+                                min: 5,
+                                items: {
+                                    number: {
+                                        min: 0
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -54,13 +45,16 @@ const schema: IMatch = {
 
 const input = {
     body: {
-        test_1: 'reject',
-        test_2: 10,
-        test_3: {
-            test_3_1: 'test'
+        data: {
+            name: 'Johnathan'
         },
-        test_4: [
-            'https://google.com',
+        dataset: [
+            {
+                name: 'Johnathan',
+                list: [
+                    1, 2, 3, 4, 5
+                ]
+            }
         ]
     }
 };

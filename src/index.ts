@@ -18,7 +18,7 @@ const typesafe = (schema: IMatch) => {
 
                         switch (what(schema)) {
                             case SafeType.string: {
-                                const { min, max, custom } = array ? schemas : schema.string;
+                                const { min, max, custom } = array ? schemas.string : schema.string;
 
                                 const value = array ? input : input[key];
 
@@ -44,7 +44,7 @@ const typesafe = (schema: IMatch) => {
                                 break;
                             }
                             case SafeType.number: {
-                                const { min, max, custom } = array ? schemas : schema.number;
+                                const { min, max, custom } = array ? schemas.number : schema.number;
 
                                 const value = array ? input : input[key];
 
@@ -70,10 +70,14 @@ const typesafe = (schema: IMatch) => {
                                 break;
                             }
                             case SafeType.object: {
-                                const _schema = array ? schemas : schema.object,
+                                const _schema = array ? schemas.object : schema.object,
                                     _input = array ? input : input[key];
 
-                                _typesafe(path, _schema, _input, false);
+                                if (typeof _input !== 'object')
+                                    throw parseError(path, 'not an object');
+
+                                _typesafe(path, _schema, _input, false)
+                                    .catch(err => reject(err));
 
                                 break;
                             }
@@ -95,7 +99,8 @@ const typesafe = (schema: IMatch) => {
                                     throw parseError(path, 'too long');
 
                                 value.forEach((item, index) => {
-                                    _typesafe(`${path}[${index}]`, items, item, true);
+                                    _typesafe(`${path}[${index}]`, items, item, true)
+                                        .catch(err => reject(err));
                                 });
 
                                 break;
