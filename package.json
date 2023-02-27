@@ -1,6 +1,6 @@
 {
     "name": "@imaximus/typesafe",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Introducing \"typesafe\", an npm package providing object-oriented type safety for Express and general usage.",
     "keywords": [
         "typesafe",
