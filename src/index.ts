@@ -4,7 +4,7 @@ import { isNull, isNullOrEmpty } from './components/check';
 import parseError from './components/parseError';
 import { Request, Response, NextFunction } from 'express';
 
-export const typesafe = (schema: IMatch) => {
+const typesafe = (schema: IMatch) => {
     return (input: any) => {
         return new Promise((resolve, reject) => {
             const _typesafe = async (_path: string, schemas: any, input: any, array: boolean) => {
@@ -132,10 +132,16 @@ export const typesafe = (schema: IMatch) => {
     }
 }
 
-export const middleware = (schema: IMatch) => {
+const middleware = (schema: IMatch) => {
     return (req: Request, res: Response, next: NextFunction) => {
         typesafe(schema)(req)
             .then(() => next())
             .catch(err => next(err));
     };
+}
+
+export {
+    typesafe,
+    middleware,
+    IMatch
 }

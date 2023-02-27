@@ -1,5 +1,4 @@
-import { IMatch } from '../components/types';
-import { typesafe, middleware } from '../index';
+import { typesafe, IMatch } from '../index';
 
 const schema: IMatch = {
     body: {
