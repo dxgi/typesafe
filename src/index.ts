@@ -14,9 +14,6 @@ const typesafe = (schema: IMatch) => {
                         const schema = array ? schemas : schemas[key],
                             path = `${_path}.${key}`;
 
-                        if (!array && !input.hasOwnProperty(key))
-                            throw parseError(path, 'empty');
-
                         switch (what(schema)) {
                             case SafeType.string: {
                                 const { min, max, nullable, custom } = array ? schemas.string : schema.string;
