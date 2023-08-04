@@ -2,7 +2,6 @@ import { IMatch, SafeType } from './components/types';
 import what from './components/what';
 import { isNull, isNullOrEmpty } from './components/check';
 import parseError from './components/parseError';
-import { Request, Response, NextFunction } from 'express';
 import SafeError from './components/SafeError';
 
 const typesafe = (schema: IMatch) => {
@@ -144,7 +143,7 @@ const typesafe = (schema: IMatch) => {
 }
 
 const middleware = (schema: IMatch) => {
-    return (req: Request, res: Response, next: NextFunction) => {
+    return (req: any, res: any, next: any) => {
         typesafe(schema)(req)
             .then(() => next())
             .catch(err => next(err));
