@@ -87,12 +87,16 @@ const typesafe = (schema: IMatch) => {
                                 break;
                             }
                             case SafeType.array: {
-                                const { min, max, items } = array ? schemas : schema.array;
+                                const { min, max, items, nullable } = array ? schemas : schema.array;
 
-                                const value = array ? input : input[key];
+                                const value = array ? input : input[key],
+                                    empty = isNullOrEmpty(value);
 
-                                if (isNullOrEmpty(value))
+                                if (!nullable && empty)
                                     throw parseError(path, 'empty');
+
+                                if (nullable && empty)
+                                    return;
 
                                 if (!Array.isArray(value))
                                     throw parseError(path, 'not an array');

@@ -39,7 +39,8 @@ const schema: IMatch = {
                             }
                         }
                     }
-                }
+                },
+                nullable: true
             }
         }
     }
@@ -52,9 +53,9 @@ const input = {
         },
         dataset: [
             {
-                name: null,
+                name: 'Not Johnathan',
                 list: [
-                    1, 2, 3, 4, 5
+                    0, 1, 2, 3, 4, 5
                 ]
             }
         ]
